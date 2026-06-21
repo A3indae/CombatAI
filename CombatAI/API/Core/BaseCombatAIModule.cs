@@ -2,13 +2,15 @@
 {
     public abstract class BaseCombatAIModule
     {
-        public BaseCombatAI Owner { get; }
+        public BaseCombatAI Owner { get; private set; }
 
-        protected BaseCombatAIModule(BaseCombatAI owner)
+        public void BaseInit(BaseCombatAI owner)
         {
             Owner = owner;
+            Init();
         }
 
         public abstract void Destroy();
+        public abstract void Init();
     }
 }

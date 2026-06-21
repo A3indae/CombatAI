@@ -112,11 +112,14 @@
   <ItemGroup>
     <Compile Include="API\Core\BaseCombatAI.cs" />
     <Compile Include="API\Core\BaseCombatAIModule.cs" />
+    <Compile Include="API\Module\Chaser.cs" />
+    <Compile Include="API\NavmeshHandler.cs" />
+    <Compile Include="API\CombatAIHandler.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="API\Module\" />
-    <Folder Include="API\Navmesh\" />
+    <Folder Include="Example\Unit\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
