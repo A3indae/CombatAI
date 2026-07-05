@@ -44,7 +44,7 @@ namespace CombatAI.API.Core
             Npc.ReferenceHub.playerStats.OnThisPlayerDied += OnDead;    
         }
 
-        protected void Destroy()
+        public void Destroy()
         {
             Npc.ReferenceHub.playerStats.OnThisPlayerDied -= OnDead;
             Npc.Destroy();

@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="API\Core\BaseCombatAI.cs" />
     <Compile Include="API\Core\BaseCombatAIModule.cs" />
+    <Compile Include="API\Module\Attacker.cs" />
     <Compile Include="API\Module\Chaser.cs" />
     <Compile Include="API\NavmeshHandler.cs" />
     <Compile Include="API\CombatAIHandler.cs" />
