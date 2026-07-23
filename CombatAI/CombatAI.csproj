@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="API\Core\BaseCombatAI.cs" />
     <Compile Include="API\Core\BaseCombatAIModule.cs" />
+    <Compile Include="API\LayerMasks.cs" />
     <Compile Include="API\Module\Acter.cs" />
     <Compile Include="API\Module\Chaser.cs" />
     <Compile Include="API\Module\Targeter.cs" />
