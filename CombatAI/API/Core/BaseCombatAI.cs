@@ -5,6 +5,8 @@ using PlayerRoles;
 using PlayerStatsSystem;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System.CodeDom;
 
 namespace CombatAI.API.Core
 {
@@ -46,6 +48,11 @@ namespace CombatAI.API.Core
 
         public void Destroy()
         {
+            foreach (var module in modules.Values.ToList())
+            {
+                module.Destroy();
+            }
+            modules.Clear();
             Npc.ReferenceHub.playerStats.OnThisPlayerDied -= OnDead;
             Npc.Destroy();
         }

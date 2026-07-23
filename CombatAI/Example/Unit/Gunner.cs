@@ -11,6 +11,8 @@ namespace CombatAI.Example.Unit
 
         public override string Name => "허접AI";
 
+        
+
         public Gunner(Vector3 spawnPosition) : base(spawnPosition)
         {
             TryAddModule<API.Module.Chaser>();
