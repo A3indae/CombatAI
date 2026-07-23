@@ -12,7 +12,7 @@ namespace CombatAI.API
         public static float AgentHeight { get; set; } = 1f;
         public static float AgentClimb { get; set; } = 0.24f;
         public static float AgentSlope { get; set; } = 45f;
-        public static string[] Layers { get; set; } = { "Default", "InvisibleCollider" };
+        public static string[] Layers { get; set; } = Layers.coll
 
         public static bool IsBuilt => _instance.valid;
 
