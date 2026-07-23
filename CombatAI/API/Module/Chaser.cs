@@ -23,7 +23,8 @@ namespace CombatAI.API.Module
         public float KitingTolerance = 1.5f;
         public int KiteSampleCount = 12;
         public float MeleeRetreatStep = 2f;
-        public LayerMask PathfindMask = LayerMask.GetMask("Default", "Door", "InvisibleCollider");// 벽/문 레이어 — 환경 맞게 직접 세팅
+        public LayerMask PathfindMask = LayerMasks.CharacterCollision;// 벽/문 레이어 — 환경 맞게 직접 세팅
+        public LayerMask BulletMask = LayerMasks.Bullet;
 
         private bool IsMelee => KitingRange < 3f;
 
@@ -140,7 +141,7 @@ namespace CombatAI.API.Module
                 Vector3 candidate = targetPos + dir * KitingRange;
 
                 // 레이캐스트 하기
-                if (Physics.Raycast(origin, dir, out var rayHit, KitingRange, PathfindMask))
+                if (Physics.Raycast(origin, dir, out var rayHit, KitingRange, BulletMask))
                 {
                     candidate = rayHit.point + rayHit.normal;
                     candidate.y = targetPos.y;

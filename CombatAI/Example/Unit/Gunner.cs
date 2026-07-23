@@ -15,6 +15,7 @@ namespace CombatAI.Example.Unit
         {
             TryAddModule<API.Module.Chaser>();
             TryAddModule<API.Module.Acter>();
+            TryAddModule<API.Module.Targeter>();
         }
 
         protected override void OnDead(DamageHandlerBase handler)

@@ -12,7 +12,7 @@ namespace CombatAI.API
         public static float AgentHeight { get; set; } = 1f;
         public static float AgentClimb { get; set; } = 0.24f;
         public static float AgentSlope { get; set; } = 45f;
-        public static string[] Layers { get; set; } = Layers.coll
+        public static LayerMask NavMeshMask = LayerMasks.CharacterCollision;
 
         public static bool IsBuilt => _instance.valid;
 
@@ -21,8 +21,7 @@ namespace CombatAI.API
             var markups = new List<NavMeshBuildMarkup>();
             var sources = new List<NavMeshBuildSource>();
 
-            int mask = LayerMask.GetMask(Layers);
-            NavMeshBuilder.CollectSources(bounds, mask,
+            NavMeshBuilder.CollectSources(bounds, NavMeshMask,
                 NavMeshCollectGeometry.PhysicsColliders, 0, markups, sources);
 
             var settings = NavMesh.CreateSettings();
