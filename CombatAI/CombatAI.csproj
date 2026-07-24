@@ -118,7 +118,7 @@
     <Compile Include="API\Module\Targeter.cs" />
     <Compile Include="API\NavmeshHandler.cs" />
     <Compile Include="API\CombatAIHandler.cs" />
-    <Compile Include="Example\Unit\Gunner.cs" />
+    <Compile Include="Example\Unit\ExampleUnit.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

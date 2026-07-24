@@ -19,20 +19,19 @@ namespace CombatAI.API.Module
             
         }
 
-        public void TryEquipItem(ItemType itemType, bool returnIfNull)
+        public ItemBase TryEquipItem(ItemType itemType, bool returnIfNull)
         {
-            if (Owner.Npc.Inventory.TryGetInventoryItem(itemType, out ItemBase itemBase))
+            if (Owner.Npc.Inventory.TryGetInventoryItem(itemType, out ItemBase item))
             {
-                Owner.Npc.Inventory.ServerSelectItem(itemBase.ItemSerial);
+                Owner.Npc.Inventory.ServerSelectItem(item.ItemSerial);
+                return item;
             }
-            else
-            {
-                if (!returnIfNull)
-                {
-                    ItemBase itemBase1 = Owner.Npc.Inventory.ServerAddItem(itemType, ItemAddReason.AdminCommand);
-                    Owner.Npc.Inventory.ServerSelectItem(itemBase1.ItemSerial);
-                }
-            }
+
+            if (returnIfNull) return null;
+
+            item = Owner.Npc.Inventory.ServerAddItem(itemType, ItemAddReason.AdminCommand);
+            Owner.Npc.Inventory.ServerSelectItem(item.ItemSerial);
+            return item;
         }
 
         public void TryInvokeAction(string action)
