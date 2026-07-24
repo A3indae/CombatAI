@@ -23,14 +23,13 @@ namespace CombatAI.Example.Unit
         private Chaser chaser;
         private Acter acter;
         private Targeter targeter;
+        private Looker looker;
 
         private MagazineModule magModule;
 
         public ExampleUnit(Vector3 spawnPosition) : base(spawnPosition)
         {
-            chaser = TryAddModule<API.Module.Chaser>();
-            acter = TryAddModule<API.Module.Acter>();
-            targeter = TryAddModule<API.Module.Targeter>();
+            unitLoop = Timing.RunCoroutine(UnitCoroutine());
         }
 
         protected override void OnDead(DamageHandlerBase handler)
@@ -39,22 +38,39 @@ namespace CombatAI.Example.Unit
             API.CombatAIHandler.RemoveById(Npc.Id);
         }
 
-        public IEnumerator<float> FollowCoroutine()
+        public IEnumerator<float> UnitCoroutine()
         {
+            while (!(Npc.RoleManager.CurrentRole is PlayerRoles.FirstPersonControl.IFpcRole))
+                yield return Timing.WaitForOneFrame;
+
+            chaser = TryAddModule<API.Module.Chaser>();
+            acter = TryAddModule<API.Module.Acter>();
+            targeter = TryAddModule<API.Module.Targeter>();
+            looker = TryAddModule<API.Module.Looker>();
+
             ItemBase item = acter.TryEquipItem(ItemType.GunCOM18, false);
             Firearm firearm = item as Firearm;
             firearm.TryGetModule<MagazineModule>(out magModule);
             chaser.StartChase();
+            looker.StartLook();
+
             while (true)
             {
                 (Player player, bool attackable) = targeter.FindTarget();
+                chaser.CurrentTarget = player;
+                looker.CurrentTarget = player;
+
                 if (player != null)
                 {
-                    chaser.CurrentTarget = player;
+                    if (Mathf.Abs(Vector3.Distance(player.Position, Npc.Position) - chaser.KitingRange) > chaser.KitingTolerance) acter.TrySprint();
+                    else acter.TryWalk();
+
                     if (attackable)
                     {
                         acter.TryShoot(false);
                         magModule.ServerModifyAmmo(255);
+                        yield return Timing.WaitForSeconds(0.2f);
+                        continue;
                     }
                 }
 

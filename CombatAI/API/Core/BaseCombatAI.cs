@@ -46,7 +46,7 @@ namespace CombatAI.API.Core
             Npc.ReferenceHub.playerStats.OnThisPlayerDied += OnDead;    
         }
 
-        public void Destroy()
+        internal void Destroy()
         {
             foreach (var module in modules.Values.ToList())
             {

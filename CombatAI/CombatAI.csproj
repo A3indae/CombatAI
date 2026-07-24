@@ -114,6 +114,7 @@
     <Compile Include="API\Core\BaseCombatAIModule.cs" />
     <Compile Include="API\LayerMasks.cs" />
     <Compile Include="API\Module\Acter.cs" />
+    <Compile Include="API\Module\Looker.cs" />
     <Compile Include="API\Module\Chaser.cs" />
     <Compile Include="API\Module\Targeter.cs" />
     <Compile Include="API\NavmeshHandler.cs" />

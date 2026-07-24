@@ -35,8 +35,8 @@ namespace CombatAI.API.Module
 
             foreach (Player player in Player.List)
             {
-                if (!HostileRoles.Contains(player.Role.Type)) continue;
-                if (!HiddenDetection && player.GetEffect<Invisible>().enabled) continue;
+                if (!HostileRoles.Contains(player.Role.Type) || player.IsNPC) continue;
+                if (!HiddenDetection && player.IsEffectActive<Invisible>()) continue;
 
                 Vector3 direction = (player.Position - Owner.Npc.Position);
                 float distance = direction.magnitude;

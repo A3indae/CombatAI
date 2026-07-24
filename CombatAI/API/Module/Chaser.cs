@@ -19,14 +19,14 @@ namespace CombatAI.API.Module
         public float PathUpdateFrequency = 0.5f;   // 경로/목적지 재계산 주기
         public float MoveTickFrequency = 0.2f;    // 도착판정 주기
 
-        public float KitingRange = 7f;
-        public float KitingTolerance = 1.5f;
+        public float KitingRange = 10f;
+        public float KitingTolerance = 2f;
         public int KiteSampleCount = 12;
-        public float MeleeRetreatStep = 2f;
+        public float MeleeRetreatStep = 0.5f;
         public LayerMask PathfindMask = LayerMasks.CharacterCollision;// 벽/문 레이어 — 환경 맞게 직접 세팅
         public LayerMask BulletMask = LayerMasks.Bullet;
 
-        private bool IsMelee => KitingRange < 3f;
+        private bool IsMelee => KitingRange <= 0.5f;
 
         public Chaser(BaseCombatAI owner) : base(owner)
         {
@@ -72,7 +72,7 @@ namespace CombatAI.API.Module
                         }
                         else if (!TryFindKitePosition(out destination))
                         {
-                            // 유효 후보 없음 → 단순 후퇴 폴백
+                            // 유효 후보 없음 -> 단순 후퇴
                             Vector3 back = (selfPos - targetPos).normalized;
                             destination = selfPos + back * MeleeRetreatStep;
                         }
@@ -94,7 +94,7 @@ namespace CombatAI.API.Module
                         float timeStamp = Time.time;
                         foreach (Vector3 waypointPosition in waypoints)// Follow waypoints
                         {
-                            if (Time.time - timeStamp > 3) break;
+                            if (Time.time - timeStamp > 2) break;
 
                             while (true)
                             {
@@ -153,16 +153,16 @@ namespace CombatAI.API.Module
                 float distToTarget = Vector3.Distance(navHit.position, targetPos);
                 float priority = -Vector3.Distance(self, navHit.position);  // 가까울수록 큼
 
-                // 전체 후보 중 AI와 최근접
-                if (priority > bestAny)
+                // 전체 후보 중 타겟과 가장 먼 점
+                if (distToTarget > bestAny)
                 {
-                    bestAny = priority;
+                    bestAny = distToTarget;
                     anyResult = navHit.position;
                     foundAny = true;
                 }
 
                 // 조건부 최근접
-                if (distToTarget <= KitingRange && priority > bestInRange)
+                if (Mathf.Abs(distToTarget - KitingRange) <= KitingTolerance && priority > bestInRange)
                 {
                     bestInRange = priority;
                     result = navHit.position;
