@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.CodeDom;
+using CentralAuth;
 
 namespace CombatAI.API.Core
 {
@@ -43,6 +44,7 @@ namespace CombatAI.API.Core
         protected BaseCombatAI(Vector3 spawnPosition)
         {
             Npc = Exiled.API.Features.Npc.Spawn(Name, RoleType, spawnPosition);
+            Npc.ReferenceHub.authManager.syncMode = (SyncMode)ClientInstanceMode.Dummy;
             Npc.ReferenceHub.playerStats.OnThisPlayerDied += OnDead;    
         }
 
