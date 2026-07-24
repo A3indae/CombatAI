@@ -49,14 +49,11 @@ NavMesh가 존재하는지 여부를 반환합니다.
 
 ## CombatAIHandler
 
-살아있는 AI를 추적하는 레지스트리입니다. AI의 생성과 제거는 **반드시** 이곳을 거쳐야 합니다.
+CombatAI를 관리하는 개체입니다. AI의 생성과 제거는 **반드시** 이곳을 거쳐야 합니다.
 
 ```csharp
 var ai = CombatAIHandler.AddCombatAI<Gunner>(spawnPosition);
 ```
-
-> `new Gunner(pos)` 로 직접 만들지 마세요. NPC는 스폰되지만 목록에 등록되지 않아,
-> `RemoveById()` / `ClearCombatAI()` 로 정리되지 않으며, 라운드가 끝나도 NPC와 코루틴이 그대로 남습니다.
 
 ### T AddCombatAI\<T\>(Vector3 pos)
 

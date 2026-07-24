@@ -31,5 +31,6 @@ public class Main : Plugin<Config>
     private void OnEndingRound(EndingRoundEventArgs ev)
     {
         CombatAI.API.NavmeshHandler.ClearNavmesh();
+        CombatAI.API.CombatAIHandler.ClearCombatAI();
     }
 }
