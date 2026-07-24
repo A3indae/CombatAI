@@ -95,24 +95,6 @@ namespace CombatAI.API.Module
                     if (lookDirection.sqrMagnitude > 0)
                     {
                         fpc.FpcModule.MouseLook.LookAtDirection(lookDirection.normalized);
-
-                        Primitive prim0 = Primitive.Create(primitiveType: PrimitiveType.Cube, position: p1, scale: new Vector3(0.1f, 0.1f, 0.1f), spawn: false);
-                        prim0.Collidable = false;
-                        prim0.Color = new Color(1, 0, 0);
-                        prim0.Spawn();
-                        Timing.CallDelayed(0.2f, () =>
-                        {
-                            prim0.Destroy();
-                        });
-
-                        Primitive prim1 = Primitive.Create(primitiveType: PrimitiveType.Cube, position: p0, scale: new Vector3(0.1f, 0.1f, 0.1f), spawn: false);
-                        prim1.Collidable = false;
-                        prim1.Color = new Color(0, 1, 0);
-                        prim1.Spawn();
-                        Timing.CallDelayed(0.2f, () =>
-                        {
-                            prim1.Destroy();
-                        });
                     }
                 }
                 yield return Timing.WaitForSeconds(LookTickFrequency);
